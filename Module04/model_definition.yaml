@@ -1,0 +1,23 @@
+input_features:
+  - name: age
+    type: number
+  - name: agency_type
+    type: text 
+  - name: commision_value 
+    type: number 
+  - name: destination
+    type: text 
+  - name: distribution_channel
+    type: text 
+  - name: duration
+    type: number 
+  - name: gender
+    type: text 
+  - name: net_sales
+    type: number 
+  - name: product_name
+    type: text 
+    
+output_features:
+  - name: claim
+    type: number
