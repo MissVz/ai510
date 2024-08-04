@@ -1,0 +1,4 @@
+jenkins-container  | Jenkins initial setup is required. An admin user has been created and a password generated.
+jenkins-container  | Please use the following password to proceed to installation:
+jenkins-container  | 
+jenkins-container  | 9fa95a6e397e44a78c865a4699232d0e
