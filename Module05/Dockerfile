@@ -1,24 +1,11 @@
-FROM jenkins/jenkins:latest
- 
-USER root
-#referenced: https://docs.docker.com/engine/install/debian/ and matched up to Dockerfile format
-RUN apt-get update -qq \
-    && apt-get install -qqy  \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
-WORKDIR /etc/apt/keyrings
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+# referred based image from https://hub.docker.com/_/python
+FROM python:3.11-slim-bullseye
 
-RUN echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+# copy current directory into docker container
+COPY . .
 
-RUN apt-get update  -qq \
-    && apt-get install docker-ce docker-ce-cli containerd.io -y
- 
-RUN usermod -aG docker jenkins
+# install necessary libraries
+RUN pip install -r requirements.txt
 
-
-
+# when the container starts, run "python app.py"
+CMD ["python", "app.py"]
