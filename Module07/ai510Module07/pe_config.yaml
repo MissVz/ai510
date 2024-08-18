@@ -1,0 +1,78 @@
+# Namespace configuration (similar to workspace or project)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pe-namespace # !!!! Updated for PE
+---
+# Deploy container/pod
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pe-nginx-deploy # Updated for PE
+  namespace: pe-namespace # !!!! Updated for PEE - Deploy to this namespace(like workspace/project)
+spec:
+  selector:
+    matchLabels:
+      app: ai-nginx-app # Updated for PE
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: ai-nginx-app # This will be referenced by service
+    spec:
+      containers:
+      - name: ai-nginx-container # Updated for PE
+        image: nginx # !!!! Updated to use a prebuilt Nginx container
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 80 # !!!! Updated for PE - nginx uses port 80
+---
+# Deploy service that configures network access
+apiVersion: v1
+kind: Service
+metadata:
+  name: pe-nginx-svc # !!!! Updated for PE - maybe new service name and match to svc/ingress? this is service and this will be referenced by ing
+  namespace: pe-namespace # !!!! Updated for PE - deploy to this namespace(like workspace/project)
+spec:
+  selector:
+    app: ai-nginx-app # Referencing deployed deployment: Deployment > spec.template.metadata.labels.app  
+  ports:
+  - protocol: "TCP"
+    port: 8080 # Updated for PE - Ingress will connect to this port
+    targetPort: 80 # !!!! Updated for PE - nginx uses port 80, actual deployed container port
+  type: ClusterIP
+---
+# If using the Docker driver or want to use Minikube add-on ingress:
+# Enable ingress on Minikube with “minikube addons enable ingress”
+# and run "minikube tunnel" in separate terminal
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pe-nginx-ing # Updated for PE
+  namespace: pe-namespace # !!!! Updated for PE
+  annotations:
+    spec.ingressClassName: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+    - http: # any connection comming through port 80
+        paths:
+          - pathType: Prefix # previous value = ImplementationSpecific
+            path: /pe-app # !!!! Updated for PE - visit browser at this path
+            backend:
+              service:
+                name: pe-nginx-svc # !!!! Updated for PE - maybe new service name and match to svc/ingress?
+                port: 
+                  number: 8080 # this is to access service not external exposed port
+          # example of adding some other service
+          #- pathType: ImplementationSpecific
+          #  path: /some_other_svc
+          #  backend:
+          #    service:
+          #      name: some-other-svc
+          #      port: 
+          #        number: 80
