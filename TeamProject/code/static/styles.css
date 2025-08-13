@@ -1,0 +1,95 @@
+/* Style for the entire body of the document */
+body {
+    font-family: 'Roboto', sans-serif; /* Sets the font family to Roboto */
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    display: flex; /* Uses flexbox for layout */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    height: 100vh; /* Sets height to 100% of the viewport height */
+    background-color: #f4f4f4; /* Sets background color to light grey */
+}
+
+/* Style for the container element */
+.container {
+    background-color: #fff; /* Sets background color to white */
+    padding: 20px; /* Adds padding inside the container */
+    border-radius: 8px; /* Rounds the corners of the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    max-width: 500px; /* Sets maximum width of the container */
+    width: 100%; /* Sets width to 100% of the parent element */
+    text-align: center; /* Centers text inside the container */
+}
+
+/* Style for the h1 heading */
+h1 {
+    text-align: center; /* Centers the heading text */
+    color: #333; /* Sets text color to dark grey */
+}
+
+/* Style for the form element */
+form {
+    display: flex; /* Uses flexbox for layout */
+    flex-direction: column; /* Arranges children in a column */
+}
+
+/* Style for the label elements */
+label {
+    display: block; /* Makes the label a block element */
+    text-align: left; /* Aligns text to the left */
+    margin-top: 10px; /* Adds top margin */
+    color: #555; /* Sets text color to medium grey */
+    font-weight: bold; /* Makes the text bold */
+}
+
+/* Style for text input fields */
+input[type="text"] {
+    width: 95%; /* Sets width to 95% of the parent element */
+    padding: 10px; /* Adds padding inside the input */
+    margin-top: 5px; /* Adds top margin */
+    margin-bottom: 15px; /* Adds bottom margin */
+    border: 1px solid #ccc; /* Sets border color to light grey */
+    border-radius: 4px; /* Rounds the corners of the input */
+}
+
+/* Style for the radio group container */
+.radio-group {
+    display: flex; /* Uses flexbox for layout */
+    align-items: center; /* Aligns items vertically in the center */
+}
+
+/* Style for labels inside the radio group */
+.radio-group label {
+    margin-right: 10px; /* Adds right margin */
+}
+
+/* Style for the submit button */
+input[type="submit"] {
+    background-color: #13b604; /* Sets background color to green */
+    color: #fff; /* Sets text color to white */
+    border: none; /* Removes border */
+    padding: 10px 20px; /* Adds padding inside the button */
+    border-radius: 4px; /* Rounds the corners of the button */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+}
+
+/* Hover effect for the submit button */
+input[type="submit"]:hover {
+    background-color: #16d705; /* Changes background color on hover */
+}
+
+/* Media query for screens with a maximum width of 600px */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px; /* Reduces padding inside the container */
+    }
+    label, input {
+        margin-bottom: 10px; /* Reduces bottom margin */
+    }
+    input[type="text"] {
+        padding: 8px; /* Reduces padding inside the input */
+    }
+    input[type="submit"] {
+        padding: 8px 16px; /* Reduces padding inside the button */
+    }
+}
